@@ -13,7 +13,7 @@ public class PaymentMeans {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long paymentMeansId;
 
     @Column(nullable = false)
     private PaymentTypes type;
