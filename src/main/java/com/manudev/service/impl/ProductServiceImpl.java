@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     // recordar que debemos de devolver el dto siempre.
     @Override
-    public ProductDTO getOrderById(Long productId) {
+    public ProductDTO getProductById(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         return productMapper.productToDTO(product);

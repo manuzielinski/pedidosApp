@@ -9,11 +9,12 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class OrderDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productId;
+    private Long orderDetailsId;
 
     @Column(nullable = false)
     private int quantity;
@@ -22,10 +23,10 @@ public class OrderDetails {
     private int subtotal;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderDetails orderDetails;
+    @JoinColumn(name = "order_id", nullable = false) // Define la clave foránea correctamente
+    private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false) // Cambia @Column por @JoinColumn aquí
     private Product product;
 }

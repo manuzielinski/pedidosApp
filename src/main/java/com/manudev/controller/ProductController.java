@@ -1,7 +1,7 @@
 package com.manudev.controller;
 
-import com.manudev.entity.Product;
-import com.manudev.repository.ProductRepository;
+import com.manudev.dto.ProductDTO;
+import com.manudev.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,36 +12,31 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
+
+    @GetMapping("/{productId}")
+    public ProductDTO getProductById(@PathVariable Long productId) {
+        return productService.getProductById(productId);
+    }
 
     @GetMapping
-    public List<Product> getAllProduct() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAllProducts() {
+        return productService.listAllProducts();
     }
 
     @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
+        return productService.createProduct(productDTO);
     }
 
-    @PutMapping("{productId}")
-    public Product updateProduct(@PathVariable Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("El producto no se encuentra con su id: " + id));
-
-        product.setName(productDetails.get);
-        product.setDescription();
-        product.setPrice();
-        product.setStock();
+    @PutMapping("/{productId}")
+    public ProductDTO updateProduct(@PathVariable Long productId, @RequestBody ProductDTO productDTO) {
+        return productService.updateProduct(productId, productDTO);
     }
 
     @DeleteMapping("/{productId}")
     public String deleteProduct(@PathVariable Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("El producto no se encuentra con su id: " + id));
-
-        product.setActive(false);
-        productRepository.save(product);
+        productService.deleteProduct(productId);
         return "Se ha eliminado el producto: " + productId;
     }
 }

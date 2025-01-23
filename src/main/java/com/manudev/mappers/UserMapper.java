@@ -5,7 +5,7 @@ import com.manudev.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     UserMapper mapper = Mappers.getMapper(UserMapper.class);
 

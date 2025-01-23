@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserDTO> getAllUsers(Long userId) {
+    public List<UserDTO> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return userList.stream()
                 .map(userMapper::userToDTO)
